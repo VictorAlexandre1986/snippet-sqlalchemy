@@ -1,6 +1,6 @@
 {
 
-	"select all": {
+	"sqlalchemy select all": {
 		"scope": "python",
 		"prefix": "selectAll",
 		"body": [
@@ -16,7 +16,7 @@
 		],
 		"description": "Cria um select all"
 	},
-	"select all limit": {
+	"sqlalchemy select all limit": {
 		"scope": "python",
 		"prefix": "selectAllLimit",
 		"body": [
@@ -32,7 +32,7 @@
 		],
 		"description": "Cria um select all com limit"
 	},
-	"select order by": {
+	"sqlalchemy select order by": {
 		"scope": "python",
 		"prefix": "selectAllOrderBy",
 		"body": [
@@ -48,7 +48,7 @@
 		],
 		"description": "Cria um select all com order by"
 	},
-	"select order by limit": {
+	"sqlalchemy select order by limit": {
 		"scope": "python",
 		"prefix": "selectAllOrderByLimit",
 		"body": [
@@ -64,7 +64,7 @@
 		],
 		"description": "Cria um select all com order by e limit"
 	},
-	"select id": {
+	"sqlalchemy select id": {
 		"scope": "python",
 		"prefix": "selectId",
 		"body": [
@@ -78,7 +78,7 @@
 		],
 		"description": "Cria um select por id"
 	},
-	"select campo": {
+	"sqlalchemy select campo": {
 		"scope": "python",
 		"prefix": "selectCampo",
 		"body": [
@@ -92,7 +92,7 @@
 		],
 		"description": "Cria um select por id "
 	},
-	"select campo limit": {
+	"sqlalchemy select campo limit": {
 		"scope": "python",
 		"prefix": "selectCampoLimit",
 		"body": [
@@ -106,7 +106,7 @@
 		],
 		"description": "Cria um select por campo  com limit"
 	},
-	"select campo order by": {
+	"sqlalchemy select campo order by": {
 		"scope": "python",
 		"prefix": "selectIdOrderBy",
 		"body": [
@@ -120,7 +120,7 @@
 		],
 		"description": "Cria um select por id com order by"
 	},
-	"select campo order by limit": {
+	"sqlalchemy select campo order by limit": {
 		"scope": "python",
 		"prefix": "selectIdOrderByLimit",
 		"body": [
@@ -134,7 +134,7 @@
 		],
 		"description": "Cria um select por id com order by e limit"
 	},
-	"select all distinct": {
+	"sqlalchemy select all distinct": {
 		"scope": "python",
 		"prefix": "selectAllDistinct",
 		"body": [
@@ -150,7 +150,7 @@
 		],
 		"description": "Cria um select all com valores unicos"
 	},
-	"select all distinct limit": {
+	"sqlalchemy select all distinct limit": {
 		"scope": "python",
 		"prefix": "selectAllDistinctLimit",
 		"body": [
@@ -166,7 +166,7 @@
 		],
 		"description": "Cria um select all com valores unicos com limite"
 	},
-	"select distinct": {
+	"sqlalchemy select distinct": {
 		"scope": "python",
 		"prefix": "selectDistinct",
 		"body": [
@@ -182,7 +182,7 @@
 		],
 		"description": "Cria um select com filter e distinct"
 	},
-	"select distinct limit": {
+	"sqlalchemy select distinct limit": {
 		"scope": "python",
 		"prefix": "selectDistinctLimit",
 		"body": [
@@ -196,7 +196,7 @@
 		],
 		"description": "Cria um select com filter e distinct e limit"
 	},
-	"select all between": {
+	"sqlalchemy select all between": {
 		"scope": "python",
 		"prefix": "selectAllBetween",
 		"body": [
@@ -212,7 +212,7 @@
 		],
 		"description": "Cria um select all com between"
 	},
-	"select all between limit": {
+	"sqlalchemy select all between limit": {
 		"scope": "python",
 		"prefix": "selectAllBetweenLimit",
 		"body": [
@@ -228,7 +228,7 @@
 		],
 		"description": "Cria um select all com between com limit"
 	},
-	"select id between": {
+	"sqlalchemy select id between": {
 		"scope": "python",
 		"prefix": "selectIdBetween",
 		"body": [
@@ -242,7 +242,7 @@
 		],
 		"description": "Cria um select filtrado com between"
 	},
-	"select id between limit": {
+	"sqlalchemy select id between limit": {
 		"scope": "python",
 		"prefix": "selectIdBetweenLimit",
 		"body": [
@@ -258,7 +258,7 @@
 		],
 		"description": "Cria um select filtrado com between com limit"
 	},
-	"select id between distinct": {
+	"sqlalchemy select id between distinct": {
 		"scope": "python",
 		"prefix": "selectIdBetweenDistinct",
 		"body": [
@@ -274,7 +274,7 @@
 		],
 		"description": "Cria um select filtrado com between e distinct"
 	},
-	"select id between distinct limit": {
+	"sqlalchemy select id between distinct limit": {
 		"scope": "python",
 		"prefix": "selectIdBetweenDistinctLimit",
 		"body": [
@@ -290,7 +290,7 @@
 		],
 		"description": "Cria um select filtrado com between e distinct com limit"
 	},
-	"select all between distinct": {
+	"sqlalchemy select all between distinct": {
 		"scope": "python",
 		"prefix": "selectAllBetweenDistinct",
 		"body": [
@@ -306,7 +306,7 @@
 		],
 		"description": "Cria um select all com between e distinct"
 	},
-	"select all between distinct limit": {
+	"sqlalchemy select all between distinct limit": {
 		"scope": "python",
 		"prefix": "selectAllBetweenDistinctLimit",
 		"body": [
@@ -322,4 +322,128 @@
 		],
 		"description": "Cria um select all com between e distinct com limit"
 	},
+	"sqlalchemy insert": {
+		"scope": "python",
+		"prefix": "SQLAlchemyinsertTable",
+		"body": [
+			"def Create(data:dict):",
+			"\ttry:",
+
+			"\t\tnovo_cadastro = Tabela(",
+
+			"\t\t\tnome=data['nome'],",
+
+			"\t\t\tdataNascimento=data['dataNascimento'],",
+
+			"\t\t)",
+
+			"\t\tsession.add_all([novo_cadastro])",
+
+			"\t\tsession.commit()",
+
+			"\t\tsession.close()",
+
+			"\t\treturn novo_cadastro",
+			
+			"\texcept Exception as e:",
+			
+			"\t\tprint(e)",
+			
+			"\t\tsession.rollback()",
+
+		],
+		"description": "Cria um exemplo de cadastro"
+	},
+	"sqlalchemy insert um para muitos": {
+		"scope": "python",
+		"prefix": "SQLAlchemyinsertTable1XN",
+		"body": [
+			"def Create(data:dict):",
+			"\trua = session.query(Tabela2).filter(Tabela2.id=data['id']).one_or_none()",
+			"",
+			"\ttry:",
+
+			"\t\tnovo_cadastro = Tabela(",
+
+			"\t\t\tnome=data['nome'],",
+
+			"\t\t\tdataNascimento=data['dataNascimento'],",
+
+			"\t\t\tenderecao=rua",
+
+			"\t\t)",
+
+			"\t\tsession.add_all([novo_cadastro])",
+
+			"\t\tsession.commit()",
+
+			"\t\tsession.close()",
+
+			"\t\treturn novo_cadastro",
+			"",
+			"\texcept Exception as e:",
+	
+			"\t\tprint(e)",
+	
+			"\t\tsession.rollback()",
+
+		],
+		"description": "Cria um exemplo de cadastro 1xM"
+	},
+	"sqlalchemy apagar": {
+		"scope": "python",
+		"prefix": "SQLAlchemyDelete",
+		"body": [
+			"def Delete(id:int):",
+			"\ttry:",
+			"\t\trua = session.query(Tabela).filter(Tabela.id=id).one_or_none()",
+			
+			"\t\tif rua:",
+
+			"\t\t\tsession.delete(rua)",
+			
+			"\t\t\tsession.commit()",
+
+			"\t\t\tsession.close()",
+
+			"\t\t\treturn rua",
+			"",
+			"\texcept Exception as e:",
+	
+			"\t\tprint(e)",
+	
+			"\t\tsession.rollback()",
+
+		],
+		"description": "Cria um exemplo de delete"
+	},
+	"sqlalchemy atualizar": {
+		"scope": "python",
+		"prefix": "SQLAlchemyUpdate",
+		"body": [
+			"def Delete(id: int, data: dict):",
+			"\ttry:",
+			"\t\tcliente = session.query(Tabela).filter(Tabela.id=data['id']).one_or_none()",
+
+			"\t\tif cliente:",
+
+
+			"\t\t\tcliente.nome=data['nome']",
+			
+			"\t\t\tsession.commit()",
+
+			"\t\t\tsession.close()",
+
+			"\t\t\treturn cliente",
+			"",
+			"\texcept Exception as e:",
+	
+			"\t\tprint(e)",
+	
+			"\t\tsession.rollback()",
+
+		],
+		"description": "Cria um exemplo de update"
+	},
+
 }
