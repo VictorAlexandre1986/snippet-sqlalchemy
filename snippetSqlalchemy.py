@@ -445,5 +445,182 @@
 		],
 		"description": "Cria um exemplo de update"
 	},
+	"sqlalchemy insert MxM": {
+		"scope": "python",
+		"prefix": "SQLAlchemyInsertMxM",
+		"body": [
+			"def insert_compra(compra_data: dict):",
+			"\ttry:",
+			"\t\tresultado = session.query(Cliente).filter(Cliente.id == compra_data['id']).first()",
+			"\t\tcampos = compra_data['campo']",
 
+			"\t\tcompra = Compra(",
+			"\t\t\tid_Cliente = resultado.id",
+			"\t\t)",
+			
+            "\t\tfor livro in livros:",
+            "\t\t# Nessa parte vc tem que criar o objeto da table de livros e passar os atributos",
+            
+                "\t\t\tlivro_obj = Livro(",
+                    "\t\t\t\tnome = livro['livro'],",
+                    "\t\t\t\tautor = livro['autor'],",
+                    "\t\t\t\teditora = livro['editora'],",
+                "\t\t\t)",
+                "\t\t\t# aqui vc adiciona os livros na tabela de junção entre livros e compras",
+                "\t\t\tcompra.livro_objeto.append(livro_obj)",
+			
+			
+			"\t\tsession.commit()",
+
+
+			"\t\tdados_cadastrados={",
+				"\t\t\t\t\"id_compra\": compra.id,",
+				"\t\t\t\t\"id_cliente\": compra.id_cliente,",
+				"\t\t\t\t\"livros\" : [{",
+					"\t\t\t\t\t\"nome\":livro.nome,",
+					"\t\t\t\t\t\"autor\":livro.autor,",
+					"\t\t\t\t\t\"editora\":livro.editora",
+				"\t\t\t\t}for livro in compra.livro_objeto]",
+			"\t\t}",
+
+			"\t\treturn dados_cadastrados",
+
+			"\t\tsession.close()",
+			
+			"",
+			"\texcept Exception as e:",
+	
+			"\t\tprint(e)",
+	
+			"\t\tsession.rollback()",
+
+		],
+		"description": "Cria um exemplo de inserção na tabela com relacionamento de muitos para muitos"
+	},
+	"sqlalchemy update MxM": {
+		"scope": "python",
+		"prefix": "SQLAlchemyUpdateMxM",
+		"body": [
+			"def update_compra(id: int,compra_data: dict):",
+			"\ttry:",
+			"\t\tcompra = session.query(Compra).filter(Compra.id == id).first()",
+			"\t\tif compra:",
+
+			"\t\t\tcliente = session.query(Cliente).filter(Cliente.nome == compra_data['nome']).first()",
+			
+			"\t\t\tif cliente:",
+			"\t\t\t\tlivros_json = compra_data['livros']",
+			"\t\t\t\tcodigos_livro=[]",
+			"\t\t\t\t#Limpar os livros antigos é necessário",
+			"\t\t\t\tcompra.livro_objeto.clear()",
+
+			"\t\t\t\tfor livro in livros_json:",
+			"\t\t\t\t\t#buscando o livro no banco",
+			"\t\t\t\t\tcodigo = session.query(Livro).filter(Livro.nome == livro['nome']).first()",
+			"\t\t\t\t\t#armazenando o codigo do livro buscando em uma lista",
+			"\t\t\t\t\tcodigos_livro.append(codigo.id)",
+			
+			"\t\t\t\tfor compra_livro in codigos_livro:",
+			"\t\t\t\t\t#Buscando um livro pelo id",
+			"\t\t\t\t\tlivro = session.query(Livro).filter(Livro.id==compra_livro).first()",
+			"\t\t\t\t\tif livro:",
+			"\t\t\t\t\t\t#Inserindo na tabela de relacionamento",
+			"\t\t\t\t\t\tcompra.livro_objeto.append(livro)",
+
+			"\t\t\t\tsession.commit()",
+			
+            "\t\t\t\tdados_cadastrados={",
+            "\t\t\t\t\t\"id_compra\": id,",
+			"\t\t\t\t\t\"id_cliente\": compra.id_cliente,",
+            "\t\t\t\t\t\"nome\": cliente.nome,",
+            "\t\t\t\t\t\"livros\" : [{",
+            "\t\t\t\t\t\t\"nome\":livro.nome,",
+            "\t\t\t\t\t\t\"autor\":livro.autor,",
+            "\t\t\t\t\t\t\"editora\":livro.editora",
+            "\t\t\t\t\t}for livro in compra.livro_objeto]",
+            "\t\t\t\t}",
+			"\t\t\t\tsession.close()",
+			"\t\t\t\tdados_cadastrados",
+
+			"\t\telse:",
+			"\t\t\t#Não achou compra",
+			"\t\t\treturn None",
+			"\texcept Exception as e:",
+			"\t\tprint(e)",
+			"\t\tsession.rollback()",
+		],
+		"description": "Cria um exemplo de atualização na tabela com relacionamento de muitos para muitos"
+	},
+	"sqlalchemy select_all MxM": {
+		"scope": "python",
+		"prefix": "SQLAlchemySelectAllMxM",
+		"body": [
+			"def buscar_compra_all():",
+			"\ttry:",
+			"\t\tresultados=[]",
+			"\t\tcompras = session.query(Compra).all()",
+			"\t\tif compras:",
+
+			"\t\t\tfor compra in compras:",
+			"\t\t\t\tlivros = []",
+			"\t\t\t\tfor livro in compra.livro_objeto:",
+			"\t\t\t\t\tlivro_data = LivroEntity(",
+			"\t\t\t\t\t\tnome = livro.nome,",
+			"\t\t\t\t\t\tautor = livro.autor,",
+			"\t\t\t\t\t\teditora=livro.editora",
+			"\t\t\t\t\t)",
+			"\t\t\t\t\tlivros.append(livro_data)",
+
+			"\t\t\t\tcliente = session.query(Cliente).filter(Cliente.id==compra.id_cliente).first()",
+			"\t\t\t\tdados_compra = CompraEntity(",
+			"\t\t\t\t\tid = compra.id,",
+			"\t\t\t\t\tid_cliente = compra.id_cliente,",
+			"\t\t\t\t\tnome= cliente.nome,",
+			"\t\t\t\t\tlivros=livros",
+			"\t\t\t\t)",
+			"\t\t\t\tresultados.append(dados_compra)",
+			"\t\t\tresultados = ListaCompraFinal(compras = resultados)",
+			"\t\t\treturn resultados",
+			"\t\telse:",
+			"\t\t\treturn None",
+			"\texcept Exception as e:",
+			"\t\tprint(e)",
+			"\t\tsession.rollback()",
+		],
+		"description": "Cria um exemplo de busca na tabela com relacionamento de muitos para muitos"
+	},
+	"sqlalchemy buscar_id MxM": {
+		"scope": "python",
+		"prefix": "SQLAlchemySelectIdMxM",
+		"body": [
+			"def select_compra_id(id: int,compra_data: dict):",
+			"\ttry:",
+			"\t\tcompra = session.query(Compra).filter(Compra.id == id).first()",
+			"\t\tif compra:",
+			"\t\t\tcliente = session.query(Cliente).filter(Cliente.id == compra.id_cliente).first()",
+			"\t\t\tlivros = []",
+			"\t\t\tfor livro in compra.livro_objeto:",
+			"\t\t\t\tlivro_data = LivroEntity(",
+			"\t\t\t\t\tnome = livro.nome,",
+			"\t\t\t\t\tautor = livro.autor,",
+			"\t\t\t\t\teditora=livro.editora",
+			"\t\t\t\t)",
+			"\t\t\t\tlivros.append(livro_data)",
+
+			"",
+			"\t\t\tdados_compra = CompraEntity(",
+			"\t\t\t\tid = compra.id,",
+			"\t\t\t\tid_cliente = compra.id_cliente,",
+			"\t\t\t\tnome= cliente.nome,",
+			"\t\t\t\tlivros=livros",
+			"\t\t\t)",
+			"\t\t\treturn dados_compra",
+			"\t\telse:",
+			"\t\t\treturn None",
+			"\texcept Exception as e:",
+			"\t\tprint(e)",
+			"\t\tsession.rollback()",
+		],
+		"description": "Cria um exemplo de buscar por id na tabela com relacionamento de muitos para muitos"
+	},
 }
