@@ -322,6 +322,110 @@
 		],
 		"description": "Cria um select all com between e distinct com limit"
 	},
+	"sqlalchemy select in": {
+		"scope": "python",
+		"prefix": "selectIn",
+		"body": [
+			"def getIn():",
+			"",
+			"\tnomes_a_pesquisar = ['Alice', 'Bob', 'Charlie']",
+			"",
+			"\tresult = session.query(Pessoa).filter(Pessoa.nome.in_(nomes_a_pesquisar)).all()",
+			"",
+			"\tlista_itens = [item.dict() for item in result]",
+			"",
+			"\tsession.close()",
+			"",
+			"\treturn(lista_itens)",
+			""
+		],
+		"description": "Cria um select usando in"
+	},
+	"sqlalchemy select and": {
+		"scope": "python",
+		"prefix": "selectAnd",
+		"body": [
+			"def getAnd(adultos,criancas):",
+			"",
+			"\tresult = session.query(Viagem).filter((Viagem.data.between('1986-05-29','2023-05-19')) & (Viagem.adultos==adultos) & (Viagem.criancas==criancas)).all()",
+			"",
+			"\tlista_itens = [item.dict() for item in result]",
+			"",
+			"\tsession.close()",
+			"",
+			"\treturn(lista_itens)",
+			""
+		],
+		"description": "Cria um select usando and"
+	},
+	"sqlalchemy select or": {
+		"scope": "python",
+		"prefix": "selectOr",
+		"body": [
+			"def getOr(adultos,criancas):",
+			"",
+			"\t#Viagem é o nome da tabela mapeada no orm('Classe'), o data,adultos e criancas são campos da tabela('atributos da classe')",
+			"",
+			"\tresult = session.query(Viagem).filter((Viagem.data.between('1986-05-29','2023-05-19')) | (Viagem.adultos==adultos) | (Viagem.criancas==criancas)).all()",
+			"",
+			"\tlista_itens = [item.dict() for item in result]",
+			"",
+			"\tsession.close()",
+			"",
+			"\treturn(lista_itens)",
+			""
+		],
+		"description": "Cria um select usando and"
+	},
+	"sqlalchemy select count": {
+		"scope": "python",
+		"prefix": "selectCount",
+		"body": [
+			"def getCount():",
+			"\tfrom sqlalchemy.sql import func",
+			"",
+			"\tresult = session.query(func.count(Cliente.id)).scalar()",
+			"",
+			"\tsession.close()",
+			"",
+			"\treturn(result)",
+			""
+		],
+		"description": "Cria um select usando a função de agregação count"
+	},
+
+	"sqlalchemy select max": {
+		"scope": "python",
+		"prefix": "selectMax",
+		"body": [
+			"def getMax():",
+			"\tfrom sqlalchemy.sql import func",
+			"",
+			"\tmax_valor = session.query(func.max(Exemplo.valor)).scalar()",
+			"",
+			"\tsession.close()",
+			"",
+			"\treturn(max_valor)",
+			""
+		],
+		"description": "Cria um select usando a função de agregação max"
+	},
+	"sqlalchemy select avg": {
+		"scope": "python",
+		"prefix": "selectAVG",
+		"body": [
+			"def getAVG():",
+			"\tfrom sqlalchemy.sql import func",
+			"",
+			"\tavg_amount = session.query(func.avg(Order.amount)).scalar()",
+			"",
+			"\tsession.close()",
+			"",
+			"\treturn(avg_amount)",
+			""
+		],
+		"description": "Cria um select usando a função de agregação média"
+	},
 	"sqlalchemy insert": {
 		"scope": "python",
 		"prefix": "SQLAlchemyinsertTable",
